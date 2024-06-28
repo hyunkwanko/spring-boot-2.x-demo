@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - master
+
+name: SonarQube Workflow
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Check out Repository
+      uses: actions/checkout@v4
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        fetch-depth: 0
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Build with Gradle
+      run: ./gradlew build
+    - name: Sonarqube Scan
+      run: ./gradlew sonar -Dsonar.host.url=${{ secrets.SONARQUBE_HOST }} -Dsonar.token=${{ secrets.SONARQUBE_TOKEN }}
