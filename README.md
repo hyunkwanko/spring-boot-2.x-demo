@@ -3,5 +3,5 @@
 * Spring Boot 2.7.16
 * Java 11
 * Gradle 7.1.1
-* Sonarqube 5.0.0.4638
+* Sonarqube 3.5.0.2730
 * Jacoco 0.8.11
